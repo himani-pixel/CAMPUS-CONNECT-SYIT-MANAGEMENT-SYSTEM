@@ -5,24 +5,20 @@ import random
 import math
 
 class Node:
-    """Node for singly linked list"""
     def __init__(self, data):
         self.data = data
         self.next = None
 
 class LinkedList:
-    """Singly Linked List for announcements"""
     def __init__(self):
         self.head = None
     
     def add_announcement(self, message):
-        """Add announcement to the front (most recent first)"""
         new_node = Node(message)
         new_node.next = self.head
         self.head = new_node
     
     def display_announcements(self):
-        """Display all announcements"""
         announcements = []
         current = self.head
         count = 1
@@ -33,26 +29,21 @@ class LinkedList:
         return announcements
 
 class Stack:
-    """Stack for assignment submission history"""
     def __init__(self):
         self.items = []
     
     def push(self, item):
-        """Push assignment to stack"""
         self.items.append(item)
     
     def pop(self):
-        """Pop assignment from stack"""
         if not self.is_empty():
             return self.items.pop()
         return None
     
     def is_empty(self):
-        """Check if stack is empty"""
         return len(self.items) == 0
     
     def display_stack(self):
-        """Display submission history"""
         submissions = []
         if not self.is_empty():
             for i, item in enumerate(reversed(self.items), 1):
@@ -60,30 +51,24 @@ class Stack:
         return submissions
 
 class Queue:
-    """Queue for lab equipment booking"""
     def __init__(self):
         self.items = []
     
     def enqueue(self, item):
-        """Add student to waiting list"""
         self.items.append(item)
     
     def dequeue(self):
-        """Remove student from waiting list"""
         if not self.is_empty():
             return self.items.pop(0)
         return None
     
     def is_empty(self):
-        """Check if queue is empty"""
         return len(self.items) == 0
     
     def size(self):
-        """Get queue size"""
         return len(self.items)
     
     def display_queue(self):
-        """Display waiting list"""
         waiting_list = []
         if not self.is_empty():
             for i, student in enumerate(self.items, 1):
@@ -91,7 +76,6 @@ class Queue:
         return waiting_list
 
 class AnimatedGradientLabel(tk.Label):
-    """Animated gradient label for eye-catching headers"""
     def __init__(self, parent, text, **kwargs):
         super().__init__(parent, text=text, font=('Arial', 28, 'bold'), **kwargs)
         self.colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD']
@@ -99,14 +83,12 @@ class AnimatedGradientLabel(tk.Label):
         self.animate()
     
     def animate(self):
-        """Animate the text color"""
-        if self.winfo_exists():  # Check if widget still exists
+        if self.winfo_exists():
             self.config(fg=self.colors[self.color_index])
             self.color_index = (self.color_index + 1) % len(self.colors)
             self.after(200, self.animate)
 
 class Particle:
-    """Particle for background animation"""
     def __init__(self, canvas, width, height):
         self.canvas = canvas
         self.width = width
@@ -123,11 +105,9 @@ class Particle:
         )
     
     def move(self):
-        """Move the particle"""
         self.x += self.speed_x
         self.y += self.speed_y
         
-        # Bounce off edges
         if self.x <= 0 or self.x >= self.width:
             self.speed_x *= -1
         if self.y <= 0 or self.y >= self.height:
@@ -136,14 +116,11 @@ class Particle:
         self.canvas.coords(self.particle, self.x, self.y, self.x + self.size, self.y + self.size)
 
 class SimpleGradientFrame(tk.Frame):
-    """Simplified gradient frame that actually works"""
     def __init__(self, parent, color, **kwargs):
         super().__init__(parent, bg=color, **kwargs)
 
 class ModernButton(tk.Button):
-    """Modern animated button with hover effects"""
     def __init__(self, parent, text, command, **kwargs):
-        # Default styling
         defaults = {
             'bg': '#FF6B6B',
             'fg': 'white',
@@ -158,33 +135,27 @@ class ModernButton(tk.Button):
         
         super().__init__(parent, text=text, command=command, **defaults)
         
-        # Bind events for hover effects
         self.bind('<Enter>', self._on_enter)
         self.bind('<Leave>', self._on_leave)
         self.bind('<ButtonPress-1>', self._on_press)
         self.bind('<ButtonRelease-1>', self._on_release)
         
         self.original_bg = self['bg']
-        self.hover_bg = self._adjust_color(self.original_bg, -20)  # Darker on hover
+        self.hover_bg = self._adjust_color(self.original_bg, -20)
     
     def _on_enter(self, event):
-        """Mouse enter event"""
         self.config(bg=self.hover_bg)
     
     def _on_leave(self, event):
-        """Mouse leave event"""
         self.config(bg=self.original_bg)
     
     def _on_press(self, event):
-        """Mouse press event"""
         self.config(relief='sunken')
     
     def _on_release(self, event):
-        """Mouse release event"""
         self.config(relief='raised')
     
     def _adjust_color(self, hex_color, amount):
-        """Adjust color brightness"""
         try:
             hex_color = hex_color.lstrip('#')
             r = max(0, min(255, int(hex_color[0:2], 16) + amount))
@@ -192,7 +163,7 @@ class ModernButton(tk.Button):
             b = max(0, min(255, int(hex_color[4:6], 16) + amount))
             return f'#{r:02x}{g:02x}{b:02x}'
         except:
-            return hex_color  # Return original if error
+            return hex_color
 
 class CampusConnectGUI:
     def __init__(self, root):
@@ -201,7 +172,6 @@ class CampusConnectGUI:
         self.root.geometry("1400x900")
         self.root.configure(bg='#1a1a2e')
         
-        # Enhanced vibrant theme settings
         self.dark_mode = True
         self.theme_colors = {
             'dark': {
@@ -238,7 +208,6 @@ class CampusConnectGUI:
             }
         }
         
-        # Initialize data structures
         self.students = {
             "S001": {"name": "Himani Malankar", "phone": "9876512345", "year": "SY", "department": "IT"},
             "S002": {"name": "Sachin Singh", "phone": "9876523456", "year": "SY", "department": "IT"},
@@ -253,7 +222,6 @@ class CampusConnectGUI:
         self.submission_stack = Stack()
         self.lab_queue = Queue()
         
-        # IT-specific lab equipment
         self.lab_equipment = {
             "Computer Systems": [
                 "High-Performance Desktop (i9, 32GB RAM)",
@@ -283,7 +251,6 @@ class CampusConnectGUI:
             ]
         }
         
-        # Fixed timetable - added missing commas
         self.timetable = [
             ["07:30-08:30", "", "", "CC Sports (Mr. Deepak) R.209", "", "", ""],
             ["08:30-09:30", "", "", "Python Programming (Asst. Prof. Sneha) R.004", 
@@ -314,31 +281,23 @@ class CampusConnectGUI:
         self.grades = [85, 92, 78, 65, 88, 95, 72, 81]
         self.current_user = None
         
-        # Animation variables
         self.particles = []
         
-        # Add sample data
         self.add_sample_data()
         
-        # Configure styles
         self.configure_styles()
         
-        # Create animated background
         self.create_animated_background()
         
-        # Create GUI
         self.create_login_screen()
     
     def create_animated_background(self):
-        """Create animated background with particles"""
         self.bg_canvas = tk.Canvas(self.root, bg=self.theme_colors['dark']['bg'], highlightthickness=0)
         self.bg_canvas.place(x=0, y=0, relwidth=1, relheight=1)
         
-        # Create particles after window is rendered
         self.root.after(100, self.create_particles)
         
     def create_particles(self):
-        """Create animated particles"""
         try:
             width = self.root.winfo_width()
             height = self.root.winfo_height()
@@ -347,15 +306,14 @@ class CampusConnectGUI:
                 self.bg_canvas.delete("all")
                 self.particles = []
                 
-                for _ in range(15):  # Reduced for better performance
+                for _ in range(15):
                     self.particles.append(Particle(self.bg_canvas, width, height))
                 
                 self.animate_particles()
         except (tk.TclError, AttributeError):
-            pass  # Window might be closed
+            pass
     
     def animate_particles(self):
-        """Animate particles"""
         try:
             if hasattr(self, 'bg_canvas') and self.bg_canvas.winfo_exists():
                 for particle in self.particles:
@@ -363,15 +321,13 @@ class CampusConnectGUI:
                 
                 self.root.after(50, self.animate_particles)
         except (tk.TclError, AttributeError):
-            pass  # Window might be closed
+            pass
     
     def configure_styles(self):
-        """Configure ttk styles for modern look"""
         try:
             style = ttk.Style()
             style.theme_use('clam')
             
-            # Configure custom styles with vibrant colors
             style.configure('Custom.TNotebook', 
                            background=self.theme_colors['dark']['bg'])
             style.configure('Custom.TNotebook.Tab', 
@@ -384,10 +340,9 @@ class CampusConnectGUI:
                      background=[('selected', self.theme_colors['dark']['accent'])],
                      foreground=[('selected', 'white')])
         except:
-            pass  # Style configuration might fail on some systems
+            pass
     
     def create_gradient_header(self, parent, text, gradient_color):
-        """Create a simplified gradient header"""
         header = SimpleGradientFrame(parent, gradient_color, height=80)
         header.pack(fill='x', padx=10, pady=10)
         
@@ -398,20 +353,16 @@ class CampusConnectGUI:
         return header
     
     def create_login_screen(self):
-        """Create vibrant login screen"""
         self.clear_screen()
         
-        # Main container with solid background
         main_frame = SimpleGradientFrame(self.root, self.theme_colors['dark']['bg'])
         main_frame.pack(fill='both', expand=True)
         
-        # Login container
         login_container = SimpleGradientFrame(main_frame, self.theme_colors['dark']['card_bg'], 
                                             height=500, width=600)
         login_container.place(relx=0.5, rely=0.5, anchor='center')
         login_container.pack_propagate(False)
         
-        # Animated title
         title = tk.Label(login_container, text="🎓 CAMPUS CONNECT 🎓", 
                         bg=self.theme_colors['dark']['card_bg'], 
                         fg=self.theme_colors['dark']['accent'], 
@@ -423,7 +374,6 @@ class CampusConnectGUI:
                            fg='white', font=('Arial', 18, 'bold'))
         subtitle.pack(pady=5)
         
-        # Login form
         form_container = SimpleGradientFrame(login_container, self.theme_colors['dark']['card_bg'])
         form_container.pack(pady=30, padx=50, fill='both', expand=True)
         
@@ -438,31 +388,26 @@ class CampusConnectGUI:
         self.login_entry.pack(pady=10)
         self.login_entry.focus()
         
-        # Bind Enter key to login
         self.login_entry.bind('<Return>', lambda e: self.handle_login())
         
-        # Modern login button
         login_btn = ModernButton(form_container, text="🚀 LOGIN", command=self.handle_login,
                                 bg=self.theme_colors['dark']['accent'],
                                 fg='white', font=('Arial', 16, 'bold'),
                                 padx=30, pady=15)
         login_btn.pack(pady=20)
         
-        # Signup button
         signup_btn = ModernButton(form_container, text="✨ New Student? Sign Up", 
                                  command=self.create_signup_screen,
                                  bg=self.theme_colors['dark']['success'],
                                  fg='white', font=('Arial', 14, 'bold'))
         signup_btn.pack(pady=10)
         
-        # Student IDs hint
         hint_label = tk.Label(form_container, text="Try: S001 to S007", 
                              bg=self.theme_colors['dark']['card_bg'], fg='#FFD700',
                              font=('Arial', 12, 'bold'))
         hint_label.pack(pady=10)
 
     def create_signup_screen(self):
-        """Create student registration screen"""
         self.clear_screen()
         
         main_frame = SimpleGradientFrame(self.root, self.theme_colors['dark']['bg'])
@@ -478,11 +423,9 @@ class CampusConnectGUI:
                 fg=self.theme_colors['dark']['accent'], 
                 font=('Arial', 24, 'bold')).pack(pady=20)
         
-        # Registration form
         form_frame = SimpleGradientFrame(signup_frame, self.theme_colors['dark']['card_bg'])
         form_frame.pack(pady=20, padx=30, fill='both', expand=True)
         
-        # Form fields
         fields = [
             ("Full Name:", "name_entry"),
             ("Phone Number:", "phone_entry"), 
@@ -504,11 +447,9 @@ class CampusConnectGUI:
             entry.grid(row=i, column=1, pady=10, padx=10)
             self.signup_entries[key] = entry
         
-        # Set default values
         self.signup_entries['year_entry'].insert(0, "SY")
         self.signup_entries['dept_entry'].insert(0, "IT")
         
-        # Buttons
         btn_frame = SimpleGradientFrame(form_frame, self.theme_colors['dark']['card_bg'])
         btn_frame.grid(row=5, column=0, columnspan=2, pady=20)
         
@@ -523,7 +464,6 @@ class CampusConnectGUI:
         back_btn.pack(side='left', padx=10)
     
     def handle_signup(self):
-        """Handle student registration"""
         try:
             name = self.signup_entries['name_entry'].get().strip()
             phone = self.signup_entries['phone_entry'].get().strip()
@@ -554,7 +494,6 @@ class CampusConnectGUI:
             messagebox.showerror("Error", f"Registration failed: {str(e)}")
     
     def handle_login(self):
-        """Handle login attempt"""
         student_id = self.login_entry.get().strip().upper()
         
         if student_id in self.students:
@@ -566,10 +505,8 @@ class CampusConnectGUI:
             messagebox.showerror("Error", "Invalid Student ID! Try S001 to S007")
 
     def create_main_dashboard(self):
-        """Create vibrant main dashboard"""
         self.clear_screen()
         
-        # Header
         header_frame = SimpleGradientFrame(self.root, self.theme_colors['dark']['header_bg'], height=100)
         header_frame.pack(fill='x', padx=10, pady=10)
         
@@ -582,7 +519,6 @@ class CampusConnectGUI:
                         font=('Arial', 20, 'bold'))
         title.pack(side='left')
         
-        # User info and controls
         control_frame = SimpleGradientFrame(header_content, self.theme_colors['dark']['header_bg'])
         control_frame.pack(side='right')
         
@@ -592,7 +528,6 @@ class CampusConnectGUI:
                            fg='white', font=('Arial', 14, 'bold'))
         user_info.pack(pady=5)
         
-        # Control buttons
         btn_frame = SimpleGradientFrame(control_frame, self.theme_colors['dark']['header_bg'])
         btn_frame.pack()
         
@@ -607,19 +542,16 @@ class CampusConnectGUI:
                                  font=('Arial', 10, 'bold'), padx=10, pady=5)
         logout_btn.pack(side='left', padx=5)
         
-        # Main content with notebook
         self.create_main_notebook()
     
     def create_main_notebook(self):
-        """Create main notebook with styled tabs"""
         notebook = ttk.Notebook(self.root, style='Custom.TNotebook')
         notebook.pack(fill='both', expand=True, padx=10, pady=10)
         
-        # Create tabs
         tabs = [
             ("📢 ANNOUNCEMENTS", self.create_announcements_tab),
             ("📚 ASSIGNMENTS", self.create_assignments_tab),
-            ("💻 IT LAB BOOKING", self.create_lab_booking_tab),  # Changed tab name
+            ("💻 IT LAB BOOKING", self.create_lab_booking_tab),
             ("📅 TIMETABLE", self.create_timetable_tab),
             ("📊 GRADES", self.create_grades_tab),
             ("👥 DIRECTORY", self.create_directory_tab)
@@ -631,11 +563,9 @@ class CampusConnectGUI:
             tab_method(frame)
     
     def create_announcements_tab(self, parent):
-        """Create announcements tab"""
         header = self.create_gradient_header(parent, "📢 LATEST ANNOUNCEMENTS 📢", 
                                            self.theme_colors['dark']['header_bg'])
         
-        # Content
         content_frame = SimpleGradientFrame(parent, self.theme_colors['dark']['bg'])
         content_frame.pack(fill='both', expand=True, padx=20, pady=20)
         
@@ -648,15 +578,12 @@ class CampusConnectGUI:
         self.update_announcements_display()
     
     def create_assignments_tab(self, parent):
-        """Create assignments tab"""
         header = self.create_gradient_header(parent, "📚 ASSIGNMENT MANAGEMENT 📚", 
                                            self.theme_colors['dark']['header_bg'])
         
-        # Dual panel layout
         dual_frame = SimpleGradientFrame(parent, self.theme_colors['dark']['bg'])
         dual_frame.pack(fill='both', expand=True, padx=20, pady=20)
         
-        # Left panel - Submission history
         left_frame = SimpleGradientFrame(dual_frame, self.theme_colors['dark']['card_bg'])
         left_frame.pack(side='left', fill='both', expand=True, padx=5, pady=5)
         
@@ -670,7 +597,6 @@ class CampusConnectGUI:
                                                          insertbackground='white')
         self.submissions_text.pack(fill='both', expand=True, padx=10, pady=10)
         
-        # Right panel - New submission
         right_frame = SimpleGradientFrame(dual_frame, self.theme_colors['dark']['card_bg'])
         right_frame.pack(side='right', fill='both', expand=True, padx=5, pady=5)
         
@@ -678,7 +604,6 @@ class CampusConnectGUI:
                 bg=self.theme_colors['dark']['card_bg'], 
                 fg='white', font=('Arial', 16, 'bold')).pack(pady=10)
         
-        # Form
         form_frame = SimpleGradientFrame(right_frame, self.theme_colors['dark']['card_bg'])
         form_frame.pack(fill='both', expand=True, padx=20, pady=20)
         
@@ -700,7 +625,6 @@ class CampusConnectGUI:
                                 fg='white', insertbackground='white')
         self.filename.pack(fill='x', pady=5)
         
-        # Buttons
         btn_frame = SimpleGradientFrame(form_frame, self.theme_colors['dark']['card_bg'])
         btn_frame.pack(fill='x', pady=20)
         
@@ -717,7 +641,6 @@ class CampusConnectGUI:
         self.update_submissions_display()
     
     def submit_assignment(self):
-        """Handle assignment submission"""
         name = self.assignment_name.get().strip()
         filename = self.filename.get().strip()
         
@@ -736,7 +659,6 @@ class CampusConnectGUI:
         messagebox.showinfo("Success", "Assignment submitted successfully!")
     
     def undo_submission(self):
-        """Undo last submission"""
         if self.submission_stack.is_empty():
             messagebox.showinfo("Info", "No submissions to undo!")
             return
@@ -746,14 +668,12 @@ class CampusConnectGUI:
         messagebox.showinfo("Undone", f"Removed: {undone}")
     
     def create_lab_booking_tab(self, parent):
-        """Create IT Lab booking tab with IT-specific equipment"""
         header = self.create_gradient_header(parent, "💻 IT LAB EQUIPMENT BOOKING 💻", 
                                            self.theme_colors['dark']['header_bg'])
         
         content_frame = SimpleGradientFrame(parent, self.theme_colors['dark']['bg'])
         content_frame.pack(fill='both', expand=True, padx=20, pady=20)
         
-        # Equipment category selection
         category_frame = SimpleGradientFrame(content_frame, self.theme_colors['dark']['card_bg'])
         category_frame.pack(fill='x', pady=10)
         
@@ -769,7 +689,6 @@ class CampusConnectGUI:
         category_combo.current(0)
         category_combo.bind('<<ComboboxSelected>>', lambda e: self.update_equipment_list())
         
-        # Equipment selection
         equip_frame = SimpleGradientFrame(content_frame, self.theme_colors['dark']['card_bg'])
         equip_frame.pack(fill='x', pady=10)
         
@@ -783,7 +702,6 @@ class CampusConnectGUI:
         self.equipment_combo.pack(side='left', padx=10, pady=10)
         self.update_equipment_list()
         
-        # Booking duration
         duration_frame = SimpleGradientFrame(content_frame, self.theme_colors['dark']['card_bg'])
         duration_frame.pack(fill='x', pady=10)
         
@@ -798,7 +716,6 @@ class CampusConnectGUI:
                                      fg='white', insertbackground='white')
         duration_spinbox.pack(side='left', padx=10, pady=10)
         
-        # Waiting list
         list_frame = SimpleGradientFrame(content_frame, self.theme_colors['dark']['card_bg'])
         list_frame.pack(fill='both', expand=True, pady=10)
         
@@ -812,7 +729,6 @@ class CampusConnectGUI:
                                                           insertbackground='white')
         self.waiting_list_text.pack(fill='both', expand=True, padx=10, pady=10)
         
-        # Controls
         control_frame = SimpleGradientFrame(content_frame, self.theme_colors['dark']['bg'])
         control_frame.pack(fill='x', pady=10)
         
@@ -829,7 +745,6 @@ class CampusConnectGUI:
         self.update_waiting_list_display()
     
     def update_equipment_list(self):
-        """Update equipment list based on selected category"""
         category = self.category_var.get()
         if category in self.lab_equipment:
             equipment_list = self.lab_equipment[category]
@@ -838,7 +753,6 @@ class CampusConnectGUI:
                 self.equipment_combo.current(0)
     
     def join_waiting_list(self):
-        """Add current user to waiting list for IT equipment"""
         if self.current_user:
             category = self.category_var.get()
             equipment = self.equipment_var.get()
@@ -855,7 +769,6 @@ class CampusConnectGUI:
             messagebox.showinfo("Success", f"Booked {equipment} for {duration} hours!\nYou are #{self.lab_queue.size()} in queue.")
     
     def process_next_student(self):
-        """Process next student in queue"""
         if self.lab_queue.is_empty():
             messagebox.showinfo("Info", "Queue is empty!")
             return
@@ -863,20 +776,16 @@ class CampusConnectGUI:
         student = self.lab_queue.dequeue()
         self.update_waiting_list_display()
         
-        # Extract equipment info from the queue entry
         equipment_info = student.split(' - ')[1] if ' - ' in student else student
         messagebox.showinfo("Next Student", f"{student}\n\nEquipment is now available for use!")
     
     def create_timetable_tab(self, parent):
-        """Create timetable tab"""
         header = self.create_gradient_header(parent, "📅 WEEKLY TIMETABLE 📅", 
                                            self.theme_colors['dark']['header_bg'])
         
-        # Timetable content
         timetable_frame = SimpleGradientFrame(parent, self.theme_colors['dark']['bg'])
         timetable_frame.pack(fill='both', expand=True, padx=20, pady=20)
         
-        # Create table
         columns = ['Time'] + self.days
         tree = ttk.Treeview(timetable_frame, columns=columns, show='headings', height=15)
         
@@ -893,14 +802,12 @@ class CampusConnectGUI:
         tree.pack(fill='both', expand=True)
     
     def create_grades_tab(self, parent):
-        """Create grades tab"""
         header = self.create_gradient_header(parent, "📊 GRADE ANALYSIS 📊", 
                                            self.theme_colors['dark']['header_bg'])
         
         content_frame = SimpleGradientFrame(parent, self.theme_colors['dark']['bg'])
         content_frame.pack(fill='both', expand=True, padx=20, pady=20)
         
-        # Grades display
         grades_text = scrolledtext.ScrolledText(content_frame, wrap=tk.WORD,
                                               font=('Arial', 12),
                                               bg=self.theme_colors['dark']['entry_bg'],
@@ -908,13 +815,11 @@ class CampusConnectGUI:
                                               insertbackground='white')
         grades_text.pack(fill='both', expand=True)
         
-        # Add grade analysis
         analysis = self.analyze_grades()
         grades_text.insert(tk.END, analysis)
         grades_text.config(state=tk.DISABLED)
     
     def analyze_grades(self):
-        """Analyze and format grades"""
         avg = sum(self.grades) / len(self.grades)
         highest = max(self.grades)
         lowest = min(self.grades)
@@ -945,14 +850,12 @@ Grade Distribution:
         return analysis
     
     def create_directory_tab(self, parent):
-        """Create student directory tab"""
         header = self.create_gradient_header(parent, "👥 STUDENT DIRECTORY 👥", 
                                            self.theme_colors['dark']['header_bg'])
         
         content_frame = SimpleGradientFrame(parent, self.theme_colors['dark']['bg'])
         content_frame.pack(fill='both', expand=True, padx=20, pady=20)
         
-        # Search frame
         search_frame = SimpleGradientFrame(content_frame, self.theme_colors['dark']['card_bg'])
         search_frame.pack(fill='x', pady=10)
         
@@ -967,7 +870,6 @@ Grade Distribution:
         search_entry.pack(side='left', fill='x', expand=True, padx=10, pady=10)
         search_entry.bind('<KeyRelease>', lambda e: self.search_student())
         
-        # Directory display
         self.directory_text = scrolledtext.ScrolledText(content_frame, wrap=tk.WORD,
                                                        font=('Arial', 11),
                                                        bg=self.theme_colors['dark']['entry_bg'],
@@ -977,7 +879,6 @@ Grade Distribution:
         self.display_all_students()
     
     def display_all_students(self):
-        """Display all students in directory"""
         self.directory_text.config(state=tk.NORMAL)
         self.directory_text.delete(1.0, tk.END)
         
@@ -994,7 +895,6 @@ Grade Distribution:
         self.directory_text.config(state=tk.DISABLED)
     
     def search_student(self):
-        """Search students by name or ID"""
         query = self.search_var.get().lower()
         
         self.directory_text.config(state=tk.NORMAL)
@@ -1027,7 +927,6 @@ Grade Distribution:
         self.directory_text.config(state=tk.DISABLED)
     
     def add_sample_data(self):
-        """Add sample data to the system"""
         self.announcements.add_announcement("2024-12-19 09:00 - Python Practical class moved to Lab 2")
         self.announcements.add_announcement("2024-12-18 15:30 - IT Lab will be closed for maintenance tomorrow")
         self.announcements.add_announcement("2024-12-17 10:00 - New Raspberry Pi kits available in IT Lab")
@@ -1035,12 +934,10 @@ Grade Distribution:
         self.submission_stack.push("Data Structures Assignment - linked_list.cpp - 2024-12-18 14:30")
         self.submission_stack.push("Python Programming - calculator.py - 2024-12-17 16:45")
         
-        # Sample IT lab bookings
         self.lab_queue.enqueue("Sachin Singh - High-Performance Desktop (Computer Systems) - 2 hours - Booked at 10:30")
         self.lab_queue.enqueue("Himani Malankar - Cisco Router & Switch Lab Kit (Networking) - 3 hours - Booked at 11:15")
     
     def update_announcements_display(self):
-        """Update announcements display"""
         if hasattr(self, 'announcements_text') and self.announcements_text.winfo_exists():
             self.announcements_text.config(state=tk.NORMAL)
             self.announcements_text.delete(1.0, tk.END)
@@ -1055,7 +952,6 @@ Grade Distribution:
             self.announcements_text.config(state=tk.DISABLED)
     
     def update_submissions_display(self):
-        """Update submissions display"""
         if hasattr(self, 'submissions_text') and self.submissions_text.winfo_exists():
             self.submissions_text.config(state=tk.NORMAL)
             self.submissions_text.delete(1.0, tk.END)
@@ -1070,7 +966,6 @@ Grade Distribution:
             self.submissions_text.config(state=tk.DISABLED)
     
     def update_waiting_list_display(self):
-        """Update waiting list display"""
         if hasattr(self, 'waiting_list_text') and self.waiting_list_text.winfo_exists():
             self.waiting_list_text.config(state=tk.NORMAL)
             self.waiting_list_text.delete(1.0, tk.END)
@@ -1086,20 +981,16 @@ Grade Distribution:
             self.waiting_list_text.config(state=tk.DISABLED)
     
     def toggle_theme(self):
-        """Toggle between dark and light mode"""
         self.dark_mode = not self.dark_mode
-        theme_name = 'light' if not self.dark_mode else 'dark'  # Fixed logic
+        theme_name = 'light' if not self.dark_mode else 'dark'
         messagebox.showinfo("Theme", f"Switched to {theme_name} mode!")
-        # Note: Full theme switching would require updating all colors dynamically
     
     def logout(self):
-        """Handle logout"""
         if messagebox.askyesno("Logout", "Are you sure you want to logout?"):
             self.current_user = None
             self.create_login_screen()
     
     def clear_screen(self):
-        """Clear all widgets from screen"""
         for widget in self.root.winfo_children():
             widget.destroy()
 
